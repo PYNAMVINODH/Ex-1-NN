@@ -1,7 +1,7 @@
-<H3>ENTER YOUR NAME</H3>
-<H3>ENTER YOUR REGISTER NO.</H3>
+<H3>PYNAM VINODH</H3> 
+<H3>212223240131</H3> 
 <H3>EX. NO.1</H3>
-<H3>DATE</H3>
+<H3>28-10-2026</H3>
 <H1 ALIGN =CENTER> Introduction to Kaggle and Data preprocessing</H1>
 
 ## AIM:
@@ -37,14 +37,50 @@ STEP 5:Normalizing the data<BR>
 STEP 6:Splitting the data into test and train<BR>
 
 ##  PROGRAM:
-TYPE YOUR CODE HERE
+```python
+import pandas as pd
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import StandardScaler
+```
+```python
+df = pd.read_csv("/content/Churn_Modelling.csv")
+df
+```
+```python
+df = df.drop(columns=["RowNumber", "CustomerId", "Surname"])
+df
+```
+```python
+df = df.dropna()
+```
+```python
+df["Gender"] = df["Gender"].map({"Male": 1, "Female": 0})
+df = pd.get_dummies(df, columns=["Geography"], drop_first=True, dtype=int)
+```
+```python
+x = df.drop("Exited", axis=1)
+y = df["Exited"]
+```
+```python
+xt, xst, yt, yst = train_test_split(x, y, test_size=0.2, random_state=42, stratify=y)
+```
+```python
+scaler = StandardScaler()
+xt = scaler.fit_transform(xt)
+xst = scaler.transform(xst)
+```
+```python
+print("Training Data:", xt.shape)
+print("Testing Data:", xst.shape)
+print("Training Labels:", yt.shape)
+print("Testing Labels:", yst.shape)
+```
 
 
 ## OUTPUT:
-SHOW YOUR OUTPUT HERE
+
+
 
 
 ## RESULT:
 Thus, Implementation of Data Preprocessing is done in python  using a data set downloaded from Kaggle.
-
-
